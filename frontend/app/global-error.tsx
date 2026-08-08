@@ -1,6 +1,8 @@
 "use client";
 
+import { WEBSITE_NAME } from "@/utils/Utility";
 import { useEffect } from "react";
+import { BiErrorCircle } from "react-icons/bi";
 
 export default function GlobalError({
     error,
@@ -22,7 +24,7 @@ export default function GlobalError({
                     <div className="w-full max-w-xl rounded-3xl border border-zinc-800 bg-zinc-900 p-10 text-center shadow-xl">
 
                         <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-red-500/10">
-                            <span className="text-3xl">💥</span>
+                            <BiErrorCircle className="text-3xl" />
                         </div>
 
                         <h1 className="mt-6 text-3xl font-bold">
@@ -30,7 +32,7 @@ export default function GlobalError({
                         </h1>
 
                         <p className="mt-3 text-zinc-400">
-                            Engineering Logs encountered a critical error and couldn't continue.
+                            {WEBSITE_NAME} encountered a critical error and couldn't continue.
                         </p>
 
                         {process.env.NODE_ENV === "development" && (

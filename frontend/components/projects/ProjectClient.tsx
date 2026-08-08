@@ -73,7 +73,7 @@ export default function ProjectClient({ project }: { project: any }) {
                         {project.title}
                     </h1>
 
-                    <p className="max-w-3xl text-xl leading-8 text-zinc-400">
+                    <p className="max-w-5xl text-xl leading-8 text-zinc-400 justify">
                         {project.shortDescription}
                     </p>
 

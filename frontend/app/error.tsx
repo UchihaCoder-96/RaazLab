@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { PiWarningCircle } from "react-icons/pi";
 
 export default function Error({
     error,
@@ -18,7 +19,7 @@ export default function Error({
             <div className="w-full max-w-xl rounded-3xl border border-zinc-800 bg-zinc-900 p-10 text-center shadow-xl">
 
                 <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-red-500/10">
-                    <span className="text-3xl">⚠️</span>
+                    <PiWarningCircle className="text-3xl" />
                 </div>
 
                 <h1 className="mt-6 text-3xl font-bold text-white">

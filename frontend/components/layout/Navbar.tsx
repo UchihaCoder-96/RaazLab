@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
+import { WEBSITE_NAME } from "@/utils/Utility";
 
 export default function Navbar() {
     const router = useRouter();
@@ -32,7 +33,7 @@ export default function Navbar() {
                     href="/"
                     className="text-xl font-bold tracking-wide text-white transition-colors hover:text-zinc-300"
                 >
-                    Engineering Logs
+                    {WEBSITE_NAME}
                 </Link>
 
                 <div className="flex items-center gap-8">

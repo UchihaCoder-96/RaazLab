@@ -5,13 +5,14 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import "highlight.js/styles/github-dark.css";
 import "katex/dist/katex.min.css";
+import { WEBSITE_BASE_URL, WEBSITE_NAME, WEBSITE_AUTHOR } from "@/utils/Utility";
 
 export const metadata: Metadata = {
-    metadataBase: new URL("https://engineeringlogs.com"),
+    metadataBase: new URL(WEBSITE_BASE_URL),
 
     title: {
-        default: "Engineering Logs",
-        template: "%s | Engineering Logs",
+        default: WEBSITE_NAME,
+        template: "%s | %s",
     },
 
     description:
@@ -29,18 +30,18 @@ export const metadata: Metadata = {
 
     authors: [
         {
-            name: "Uwuchiha san",
+            name: WEBSITE_AUTHOR,
         },
     ],
 
-    creator: "Uwuchiha san",
+    creator: WEBSITE_AUTHOR,
 
-    applicationName: "Engineering Logs",
+    applicationName: WEBSITE_NAME,
 
     openGraph: {
         type: "website",
-        siteName: "Engineering Logs",
-        title: "Engineering Logs",
+        siteName: WEBSITE_NAME,
+        title: WEBSITE_NAME,
         description:
             "Engineering projects and development journals.",
         images: [
@@ -50,7 +51,7 @@ export const metadata: Metadata = {
 
     twitter: {
         card: "summary_large_image",
-        title: "Engineering Logs",
+        title: WEBSITE_NAME,
         description:
             "Engineering projects and journals.",
         images: ["/og-image.png"],

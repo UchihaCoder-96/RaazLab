@@ -1,5 +1,6 @@
 import { MetadataRoute } from "next";
 import {getProjects} from "@/lib/projects";
+import { WEBSITE_BASE_URL } from "@/utils/Utility";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
@@ -8,16 +9,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     return [
 
         {
-            url: "https://engineeringlogs.com",
+            url: WEBSITE_BASE_URL,
             priority: 1,
         },
 
         {
-            url: "https://engineeringlogs.com/projects",
+            url: `${WEBSITE_BASE_URL}/projects`,
         },
 
         ...projects.map(project => ({
-            url: `https://engineeringlogs.com/projects/${project.slug}`,
+            url: `${WEBSITE_BASE_URL}/projects/${project.slug}`,
         })),
 
     ];
