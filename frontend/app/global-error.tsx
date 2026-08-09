@@ -1,7 +1,7 @@
 "use client";
 
-import { WEBSITE_NAME } from "@/utils/Utility";
 import { useEffect } from "react";
+import { WEBSITE_NAME } from "@/utils/Utility";
 import { BiErrorCircle } from "react-icons/bi";
 
 export default function GlobalError({
@@ -17,53 +17,286 @@ export default function GlobalError({
 
     return (
         <html lang="en">
-            <body className="bg-zinc-950 text-white">
+            <body className="bg-white text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100">
 
-                <section className="flex min-h-screen items-center justify-center px-6">
+                <main className="min-h-screen">
+                    <section className="
+                        mx-auto
+                        flex
+                        min-h-screen
+                        max-w-7xl
+                        items-center
+                        justify-center
+                        px-5
+                        py-16
+                        sm:px-6
+                        lg:px-10
+                    ">
 
-                    <div className="w-full max-w-xl rounded-3xl border border-zinc-800 bg-zinc-900 p-10 text-center shadow-xl">
+                        <div className="w-full max-w-2xl text-center">
 
-                        <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-red-500/10">
-                            <BiErrorCircle className="text-3xl" />
+                            {/* Status */}
+                            <div className="
+                                mb-6
+                                flex
+                                items-center
+                                justify-center
+                                gap-2
+                                font-mono
+                                text-xs
+                                text-teal-600
+                                dark:text-teal-400
+                            ">
+                                <span className="
+                                    h-2
+                                    w-2
+                                    rounded-full
+                                    bg-teal-500
+                                    dark:bg-teal-400">
+
+                                SYS_STATUS</span>
+
+                                <span className="text-zinc-400 dark:text-zinc-600">
+                                    //
+                                </span>
+
+                                <span>CRITICAL_FAILURE</span>
+                            </div>
+
+                            {/* Error icon */}
+                            <div className="
+                                mx-auto
+                                flex
+                                h-20
+                                w-20
+                                items-center
+                                justify-center
+                                border
+                                border-red-200
+                                bg-red-50
+                                dark:border-red-500/20
+                                dark:bg-red-500/10
+                            ">
+                                <BiErrorCircle className="
+                                    text-4xl
+                                    text-red-500
+                                    dark:text-red-400
+                                " />
+                            </div>
+
+                            {/* Heading */}
+                            <h1 className="
+                                mt-8
+                                text-4xl
+                                font-bold
+                                tracking-tight
+                                text-zinc-950
+                                sm:text-5xl
+                                dark:text-zinc-100
+                            ">
+                                Fatal Application Error
+                            </h1>
+
+                            <p className="
+                                mx-auto
+                                mt-4
+                                max-w-lg
+                                text-base
+                                leading-7
+                                text-zinc-600
+                                sm:text-lg
+                                dark:text-zinc-400
+                            ">
+                                {WEBSITE_NAME} encountered a critical error
+                                and could not continue running.
+                            </p>
+
+                            {/* Diagnostic terminal */}
+                            <div className="
+                                mt-8
+                                overflow-hidden
+                                border
+                                border-zinc-200
+                                bg-zinc-50
+                                text-left
+                                dark:border-zinc-800
+                                dark:bg-zinc-900/60
+                            ">
+
+                                {/* Terminal header */}
+                                <div className="
+                                    flex
+                                    h-9
+                                    items-center
+                                    justify-between
+                                    border-b
+                                    border-zinc-200
+                                    px-4
+                                    dark:border-zinc-800
+                                ">
+                                    <div className="flex items-center gap-1.5">
+                                        <span className="h-2.5 w-2.5 rounded-full bg-red-500" />
+                                        <span className="h-2.5 w-2.5 rounded-full bg-amber-400" />
+                                        <span className="h-2.5 w-2.5 rounded-full bg-emerald-400" />
+                                    </div>
+
+                                    <span className="
+                                        font-mono
+                                        text-[11px]
+                                        text-zinc-500
+                                    ">
+                                        system.log
+                                    </span>
+                                </div>
+
+                                {/* Diagnostic output */}
+                                <div className="
+                                    space-y-2
+                                    p-4
+                                    font-mono
+                                    text-xs
+                                    leading-6
+                                    sm:p-5
+                                    sm:text-sm
+                                ">
+                                    <p className="text-zinc-500">
+                                        $ ./diagnostic --status
+                                    </p>
+
+                                    <p className="text-red-500 dark:text-red-400">
+                                        &gt; FATAL: application execution halted
+                                    </p>
+
+                                    <p className="text-zinc-500">
+                                        [!] An unexpected application error occurred.
+                                    </p>
+
+                                    {process.env.NODE_ENV === "development" && (
+                                        <pre className="
+                                            mt-4
+                                            max-h-48
+                                            overflow-auto
+                                            whitespace-pre-wrap
+                                            break-words
+                                            border
+                                            border-red-200
+                                            bg-red-50
+                                            p-3
+                                            text-red-600
+                                            dark:border-red-500/20
+                                            dark:bg-red-500/5
+                                            dark:text-red-400
+                                        ">
+                                            {error.message}
+                                        </pre>
+                                    )}
+
+                                    {error.digest && (
+                                        <p className="text-zinc-500">
+                                            digest:{" "}
+                                            <span className="text-zinc-700 dark:text-zinc-400">
+                                                {error.digest}
+                                            </span>
+                                        </p>
+                                    )}
+
+                                    <p className="text-teal-600 dark:text-teal-400">
+                                        [i] Recovery actions available below.
+                                    </p>
+                                </div>
+
+                            </div>
+
+                            {/* Actions */}
+                            <div className="
+                                mt-8
+                                flex
+                                flex-col
+                                gap-3
+                                sm:flex-row
+                                sm:justify-center
+                            ">
+
+                                <button
+                                    onClick={() => reset()}
+                                    className="
+                                        flex
+                                        min-h-12
+                                        items-center
+                                        justify-center
+                                        border
+                                        border-teal-500
+                                        bg-teal-500
+                                        px-6
+                                        font-semibold
+                                        text-zinc-950
+                                        transition-colors
+                                        hover:bg-teal-400
+                                        focus:outline-none
+                                        focus:ring-2
+                                        focus:ring-teal-500
+                                        focus:ring-offset-2
+                                        focus:ring-offset-white
+                                        dark:focus:ring-offset-zinc-950
+                                    "
+                                >
+                                    Try Again
+                                </button>
+
+                                <button
+                                    onClick={() => {
+                                        window.location.href = "/";
+                                    }}
+                                    className="
+                                        flex
+                                        min-h-12
+                                        items-center
+                                        justify-center
+                                        border
+                                        border-zinc-200
+                                        bg-white
+                                        px-6
+                                        font-mono
+                                        text-sm
+                                        text-zinc-700
+                                        transition-colors
+                                        hover:border-zinc-400
+                                        hover:bg-zinc-50
+                                        dark:border-zinc-800
+                                        dark:bg-zinc-950
+                                        dark:text-zinc-300
+                                        dark:hover:border-zinc-600
+                                        dark:hover:bg-zinc-900
+                                        focus:outline-none
+                                        focus:ring-2
+                                        focus:ring-zinc-400
+                                        focus:ring-offset-2
+                                        focus:ring-offset-white
+                                        dark:focus:ring-offset-zinc-950
+                                    "
+                                >
+                                    Go Home
+                                </button>
+
+                            </div>
+
+                            {/* Footer status */}
+                            <p className="
+                                mt-8
+                                font-mono
+                                text-[11px]
+                                text-zinc-400
+                                dark:text-zinc-600
+                            ">
+                                {WEBSITE_NAME} // RECOVERY_MODE
+                            </p>
+
                         </div>
 
-                        <h1 className="mt-6 text-3xl font-bold">
-                            Fatal Application Error
-                        </h1>
-
-                        <p className="mt-3 text-zinc-400">
-                            {WEBSITE_NAME} encountered a critical error and couldn't continue.
-                        </p>
-
-                        {process.env.NODE_ENV === "development" && (
-                            <pre className="mt-6 overflow-auto rounded-xl border border-zinc-800 bg-zinc-950 p-4 text-left text-sm text-red-400">
-                                {error.message}
-                            </pre>
-                        )}
-
-                        <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
-
-                            <button
-                                onClick={() => reset()}
-                                className="rounded-xl bg-blue-600 px-6 py-3 font-medium transition hover:bg-blue-500"
-                            >
-                                Try Again
-                            </button>
-
-                            <button
-                                onClick={() => window.location.href = "/"}
-                                className="rounded-xl border border-zinc-700 px-6 py-3 font-medium text-zinc-300 transition hover:border-zinc-600 hover:bg-zinc-800"
-                            >
-                                Go Home
-                            </button>
-
-                        </div>
-
-                    </div>
-
-                </section>
-
-            </body>
+                    </section>
+                </main>
+</body>
         </html>
     );
 }
+

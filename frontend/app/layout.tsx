@@ -6,13 +6,14 @@ import Footer from "@/components/layout/Footer";
 import "highlight.js/styles/github-dark.css";
 import "katex/dist/katex.min.css";
 import { WEBSITE_BASE_URL, WEBSITE_NAME, WEBSITE_AUTHOR } from "@/utils/Utility";
+import ThemeProvider from "@/components/ui/ThemeProvider";
 
 export const metadata: Metadata = {
     metadataBase: new URL(WEBSITE_BASE_URL),
 
     title: {
         default: WEBSITE_NAME,
-        template: "%s | %s",
+        template: "%s | " + WEBSITE_NAME,
     },
 
     description:
@@ -80,16 +81,19 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <Navbar />
-
-        <main>
+        <ThemeProvider>
+          <Navbar />
+          
+          <main>
             {children}
-        </main>
+          </main>
 
-        <Footer />
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   );

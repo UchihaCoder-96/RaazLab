@@ -7,65 +7,189 @@ import { FolderGit2, NotebookPen } from "lucide-react";
 
 export default function Page() {
     const router = useRouter();
+
     const [token, setToken] = useState<string | null>(null);
 
     useEffect(() => {
-        const token = localStorage.getItem("token");
+        const storedToken = localStorage.getItem("token");
 
-        if (!token) {
+        if (!storedToken) {
             router.push("/admin/login");
             return;
         }
 
-        setToken(token);
+        setToken(storedToken);
     }, [router]);
 
     if (token === null) {
         return (
-            <div className="min-h-screen bg-zinc-950 flex items-center justify-center text-white">
-                Loading...
-            </div>
+            <main className="flex min-h-screen items-center justify-center bg-zinc-50 px-6 dark:bg-zinc-950">
+                <div className="text-center">
+
+                    <div className="
+                        mx-auto
+                        h-2
+                        w-2
+                        animate-pulse
+                        rounded-full
+                        bg-teal-500"
+                    >
+
+                    <p className="
+                        mt-4
+                        font-mono
+                        text-xs
+                        text-zinc-500
+                    ">
+                        AUTHENTICATING...
+                    </p>
+
+                </div>
+                </div>
+            </main>
         );
     }
 
-    /*
-    function logout() {
-        localStorage.removeItem("token");
-        router.push("/admin/login");
-    }
-    */
-
     return (
-        <section className="min-h-screen bg-zinc-950 text-white">
-            <div className="mx-auto max-w-6xl px-6 py-20">
+        <main className="
+            min-h-screen
+            bg-white
+            text-zinc-900
+            dark:bg-zinc-950
+            dark:text-zinc-100
+        ">
+            <section className="
+                mx-auto
+                max-w-7xl
+                px-5
+                py-16
+                sm:px-6
+                sm:py-20
+                lg:px-10
+                lg:py-24
+            ">
 
+                {/* Header */}
                 <div>
-                    <h1 className="text-5xl font-bold tracking-tight">
+
+                    <div className="
+                        flex
+                        items-center
+                        gap-2
+                        font-mono
+                        text-xs
+                        text-teal-600
+                        dark:text-teal-400
+                    ">
+                        <span className="text-teal-600 dark:text-teal-400">
+    ADMIN PANEL
+</span>
+                        <span className="text-zinc-400 dark:text-zinc-600">
+    //
+</span>
+
+<span className="text-teal-600 dark:text-teal-400">
+    AUTHENTICATED
+</span>
+                    </div>
+
+                    <h1 className="
+                        mt-6
+                        text-4xl
+                        font-bold
+                        tracking-tight
+                        text-zinc-950
+                        sm:text-5xl
+                        dark:text-zinc-100
+                    ">
                         Admin Dashboard
                     </h1>
-                    <p className="mt-4 max-w-2xl text-lg text-zinc-400">
-                        Manage engineering projects and developer journals from a
-                        single place.
+
+                    <p className="
+                        mt-4
+                        max-w-2xl
+                        text-base
+                        leading-7
+                        text-zinc-600
+                        sm:text-lg
+                        dark:text-zinc-400
+                    ">
+                        Manage engineering projects and developer journals
+                        from a single place.
                     </p>
+
                 </div>
 
-                <div className="mt-12 grid gap-8 md:grid-cols-2">
+                {/* Divider */}
+                <div className="
+                    my-10
+                    h-px
+                    bg-zinc-200
+                    dark:bg-zinc-800
+                " />
 
-                    <div className="group rounded-3xl border border-zinc-800 bg-zinc-900 p-8 transition-all duration-300 hover:-translate-y-1 hover:border-blue-500/50 hover:shadow-xl hover:shadow-blue-500/10">
+                {/* Management cards */}
+                <div className="grid gap-6 lg:grid-cols-2">
 
-                        <div className="flex items-center gap-4">
+                    {/* Projects */}
+                    <div className="
+                        group
+                        border
+                        border-zinc-200
+                        bg-zinc-50
+                        p-6
+                        transition-all
+                        duration-300
+                        hover:-translate-y-1
+                        hover:border-teal-500/50
+                        hover:shadow-xl
+                        hover:shadow-teal-500/5
+                        sm:p-8
+                        dark:border-zinc-800
+                        dark:bg-zinc-900/50
+                    ">
 
+                        <div className="
+                            flex
+                            flex-col
+                            gap-5
+                            sm:flex-row
+                            sm:items-start
+                        ">
 
-                            <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-500/10 text-blue-400">
-                                <FolderGit2 size={28} />
+                            <div className="
+                                flex
+                                h-14
+                                w-14
+                                shrink-0
+                                items-center
+                                justify-center
+                                border
+                                border-teal-500/20
+                                bg-teal-500/10
+                                text-teal-600
+                                dark:text-teal-400
+                            ">
+                                <FolderGit2 size={27} />
                             </div>
 
                             <div>
-                                <h2 className="text-2xl font-semibold">
+                                <h2 className="
+                                    text-2xl
+                                    font-semibold
+                                    text-zinc-950
+                                    dark:text-zinc-100
+                                ">
                                     Projects
                                 </h2>
 
-                                <p className="mt-1 text-zinc-400">
+                                <p className="
+                                    mt-2
+                                    max-w-md
+                                    leading-7
+                                    text-zinc-600
+                                    dark:text-zinc-400
+                                ">
                                     Create, edit and organize engineering
                                     projects.
                                 </p>
@@ -73,33 +197,110 @@ export default function Page() {
 
                         </div>
 
-                        <div className="mt-8">
+                        <div className="
+                            mt-8
+                            flex
+                            items-center
+                            justify-between
+                            border-t
+                            border-zinc-200
+                            pt-5
+                            dark:border-zinc-800
+                        ">
+
+                            <span className="
+                                font-mono
+                                text-xs
+                                text-zinc-400
+                                dark:text-zinc-600
+                            ">
+                                /projects
+                            </span>
 
                             <Link
                                 href="/admin/projects"
-                                className="inline-flex rounded-xl bg-blue-600 px-5 py-3 font-medium transition hover:bg-blue-500"
+                                className="
+                                    inline-flex
+                                    items-center
+                                    justify-center
+                                    border
+                                    border-teal-500
+                                    bg-teal-500
+                                    px-5
+                                    py-2.5
+                                    text-sm
+                                    font-semibold
+                                    text-zinc-950
+                                    transition-colors
+                                    hover:bg-teal-400
+                                "
                             >
-                                Manage Projects →
+                                Manage →
                             </Link>
 
                         </div>
 
                     </div>
 
-                    <div className="group rounded-3xl border border-zinc-800 bg-zinc-900 p-8 transition-all duration-300 hover:-translate-y-1 hover:border-blue-500/50 hover:shadow-xl hover:shadow-blue-500/10">
+                    {/* Journals */}
+                    <div className="
+                        group
+                        border
+                        border-zinc-200
+                        bg-zinc-50
+                        p-6
+                        transition-all
+                        duration-300
+                        hover:-translate-y-1
+                        hover:border-teal-500/50
+                        hover:shadow-xl
+                        hover:shadow-teal-500/5
+                        sm:p-8
+                        dark:border-zinc-800
+                        dark:bg-zinc-900/50
+                    ">
 
-                        <div className="flex items-center gap-4">
+                        <div className="
+                            flex
+                            flex-col
+                            gap-5
+                            sm:flex-row
+                            sm:items-start
+                        ">
 
-                            <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-500/10 text-emerald-400">
-                                <NotebookPen size={28} />
+                            <div className="
+                                flex
+                                h-14
+                                w-14
+                                shrink-0
+                                items-center
+                                justify-center
+                                border
+                                border-teal-500/20
+                                bg-teal-500/10
+                                text-teal-600
+                                dark:text-teal-400
+                            ">
+                                <NotebookPen size={27} />
                             </div>
 
                             <div>
-                                <h2 className="text-2xl font-semibold">
+                                <h2 className="
+                                    text-2xl
+                                    font-semibold
+                                    text-zinc-950
+                                    dark:text-zinc-100
+                                ">
                                     Journals
                                 </h2>
 
-                                <p className="mt-1 text-zinc-400">
+                                <p className="
+                                    mt-2
+                                    max-w-md
+                                    leading-7
+                                    text-zinc-600
+                                    dark:text-zinc-400
+                                ">
                                     Write and manage engineering journal
                                     entries.
                                 </p>
@@ -107,13 +308,45 @@ export default function Page() {
 
                         </div>
 
-                        <div className="mt-8">
+                        <div className="
+                            mt-8
+                            flex
+                            items-center
+                            justify-between
+                            border-t
+                            border-zinc-200
+                            pt-5
+                            dark:border-zinc-800
+                        ">
+
+                            <span className="
+                                font-mono
+                                text-xs
+                                text-zinc-400
+                                dark:text-zinc-600
+                            ">
+                                /journal
+                            </span>
 
                             <Link
                                 href="/admin/journals"
-                                className="inline-flex rounded-xl bg-blue-600 px-5 py-3 font-medium transition hover:bg-blue-500"
+                                className="
+                                    inline-flex
+                                    items-center
+                                    justify-center
+                                    border
+                                    border-teal-500
+                                    bg-teal-500
+                                    px-5
+                                    py-2.5
+                                    text-sm
+                                    font-semibold
+                                    text-zinc-950
+                                    transition-colors
+                                    hover:bg-teal-400
+                                "
                             >
-                                Manage Journals →
+                                Manage →
                             </Link>
 
                         </div>
@@ -122,7 +355,8 @@ export default function Page() {
 
                 </div>
 
-            </div>
-        </section>
+            </section>
+        </main>
     );
 }
+

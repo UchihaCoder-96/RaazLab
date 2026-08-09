@@ -124,7 +124,20 @@ export default function JournalForm({
                 <button
                     type="submit"
                     disabled={loading}
-                    className="rounded-xl bg-blue-600 px-6 py-3 font-medium transition hover:bg-blue-500 disabled:opacity-50"
+                    className="
+                    rounded-xl
+                    border
+                    border-teal-500
+                    bg-teal-500
+                    px-6
+                    py-3
+                    font-medium
+                    text-zinc-950
+                    transition-colors
+                    hover:bg-teal-400
+                    disabled:cursor-not-allowed
+                    disabled:opacity-50
+                "
                 >
                     {loading ? "Saving..." : submitText}
                 </button>
@@ -132,3 +145,4 @@ export default function JournalForm({
         </form>
     );
 }
+

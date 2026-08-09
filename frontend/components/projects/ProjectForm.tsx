@@ -150,9 +150,7 @@ export default function ProjectForm({
                 />
 
             </div>
-
             <div className="grid gap-6 md:grid-cols-2">
-
                 <SelectField
                     label="Status"
                     value={status}
@@ -161,7 +159,16 @@ export default function ProjectForm({
                 />
 
                 <div>
-                    <label className="mb-2 block text-sm font-medium text-zinc-300">
+                    <label
+                        className="
+                mb-2
+                block
+                text-sm
+                font-medium
+                text-zinc-700
+                dark:text-zinc-300
+            "
+                    >
                         Featured Order
                     </label>
 
@@ -173,26 +180,28 @@ export default function ProjectForm({
                             setFeaturedOrder(Number(e.target.value))
                         }
                         className="
-                            w-full
-                            rounded-xl
-                            border
-                            border-zinc-700
-                            bg-zinc-900
-                            px-4
-                            py-3
-                            transition
-                            focus:border-blue-500
-                            focus:outline-none
-                            focus:ring-2
-                            focus:ring-blue-500/30
-                        "
+                w-full
+                rounded-xl
+                border
+                border-zinc-300
+                bg-white
+                px-4
+                py-3
+                text-zinc-900
+                transition-colors
+                focus:border-teal-500
+                focus:outline-none
+                focus:ring-2
+                focus:ring-teal-500/20
+                dark:border-zinc-700
+                dark:bg-zinc-900
+                dark:text-zinc-100
+            "
                     />
                 </div>
-
             </div>
 
             <div className="grid gap-6 md:grid-cols-2">
-
                 <TextField
                     label="GitHub URL"
                     value={githubUrl}
@@ -206,7 +215,6 @@ export default function ProjectForm({
                     onChange={setDemoUrl}
                     type="url"
                 />
-
             </div>
 
             <TextField
@@ -225,8 +233,22 @@ export default function ProjectForm({
 
             <div className="flex justify-end">
                 <button
+                    type="submit"
                     disabled={loading}
-                    className="rounded-xl bg-blue-600 px-6 py-3 font-medium transition hover:bg-blue-500 disabled:opacity-50"
+                    className="
+            rounded-xl
+            border
+            border-teal-500
+            bg-teal-500
+            px-6
+            py-3
+            font-medium
+            text-zinc-950
+            transition-colors
+            hover:bg-teal-400
+            disabled:cursor-not-allowed
+            disabled:opacity-50
+        "
                 >
                     {loading ? "Saving..." : submitText}
                 </button>

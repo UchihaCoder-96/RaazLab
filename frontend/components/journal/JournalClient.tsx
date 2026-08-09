@@ -7,21 +7,18 @@ import remarkMath from "remark-math";
 import rehypeRaw from "rehype-raw";
 import rehypeHighlight from "rehype-highlight";
 import rehypeKatex from "rehype-katex";
-
-import API_BASE_URL from "@/lib/api";
-
 import { useEffect } from "react";
+import { WEBSITE_AUTHOR } from "@/utils/Utility";
+import API_BASE_URL from "@/lib/api";
 
 export default function JournalClient({
     journal,
 }: {
     journal: any;
 }) {
-    if (!journal) {
-        notFound();
-    }
-
     useEffect(() => {
+        if (!journal?.slug) return;
+
         async function addView() {
             const key = `viewed-${journal.slug}`;
 
@@ -46,7 +43,11 @@ export default function JournalClient({
         }
 
         addView();
-    }, [journal.slug]);
+    }, [journal?.slug]);
+
+    if (!journal) {
+        notFound();
+    }
 
     const words = journal.content
         .split(/\s+/)
@@ -57,107 +58,272 @@ export default function JournalClient({
         Math.ceil(words / 200)
     );
 
+    const publishedDate = new Date(journal.date);
+
     return (
-        <section className="bg-zinc-950 text-white">
-            <div className="mx-auto max-w-6xl px-6 py-32">
+        <main className="min-h-screen bg-white text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100">
+            <div className="mx-auto max-w-7xl px-5 py-16 sm:px-6 sm:py-20 lg:px-10 lg:py-24">
 
-                <div className="space-y-8">
+                {/* Breadcrumb */}
+                <div className="mb-8 flex flex-wrap items-center gap-2 font-mono text-xs">
+                    <span className="text-zinc-500">
+                        Journal
+                    </span>
 
-                    <div className="flex flex-wrap gap-3">
+                    <span className="text-zinc-400 dark:text-zinc-700">
+                        &gt;
+                    </span>
 
-                        <span className="rounded-full border border-sky-500/40 bg-sky-500/10 px-4 py-1 text-sm text-sky-300">
-                            Journal Entry
-                        </span>
+                    <span className="text-teal-600 dark:text-teal-400">
+                        {journal.tags?.[0] ?? "Engineering"}
+                    </span>
+                </div>
 
-                        {journal.projectSlug && (
-                            <span className="rounded-full border border-violet-500/40 bg-violet-500/10 px-4 py-1 text-sm text-violet-300">
-                                Linked Project
+                {/* Header */}
+                <header className="max-w-5xl">
+
+                    <div className="mb-6 flex flex-wrap items-center gap-x-8 gap-y-3 font-mono text-xs uppercase tracking-wide">
+
+                        <div>
+                            <span className="text-zinc-500">
+                                Published
                             </span>
-                        )}
+
+                            <span className="ml-3 text-zinc-800 dark:text-zinc-300">
+                                {publishedDate.toLocaleDateString(
+                                    "en-US",
+                                    {
+                                        year: "numeric",
+                                        month: "2-digit",
+                                        day: "2-digit",
+                                    }
+                                )}
+                            </span>
+                        </div>
+
+                        <div>
+                            <span className="text-zinc-500">
+                                Category
+                            </span>
+
+                            <span className="ml-3 text-teal-600 dark:text-teal-400">
+                                {journal.tags?.[0] ?? "Journal"}
+                            </span>
+                        </div>
+
+                        <div>
+                            <span className="text-zinc-500">
+                                Read Time
+                            </span>
+
+                            <span className="ml-3 text-zinc-800 dark:text-zinc-300">
+                                {readingTime} min read
+                            </span>
+                        </div>
+
+                        <div>
+                            <span className="text-zinc-500">
+                                Author
+                            </span>
+
+                            <span className="ml-3 text-zinc-800 dark:text-zinc-300">
+                                {WEBSITE_AUTHOR}
+                            </span>
+                        </div>
 
                     </div>
 
-                    <h1 className="text-5xl font-extrabold tracking-tight">
+                    <h1 className="
+                        max-w-5xl
+                        text-4xl
+                        font-bold
+                        leading-[1.08]
+                        tracking-tight
+                        text-zinc-950
+                        sm:text-5xl
+                        lg:text-6xl
+                        dark:text-zinc-100
+                    ">
                         {journal.title}
                     </h1>
 
-                    <p className="max-w-3xl text-xl leading-8 text-zinc-400">
+                    <p className="
+                        mt-7
+                        max-w-4xl
+                        text-base
+                        leading-7
+                        text-zinc-600
+                        sm:text-lg
+                        sm:leading-8
+                        dark:text-zinc-400
+                    ">
                         {journal.summary}
                     </p>
 
-                    <div className="grid gap-4 rounded-3xl border border-zinc-800 bg-zinc-900/60 p-6 md:grid-cols-4">
+                </header>
 
-                        <div>
-                            <p className="text-sm text-zinc-500">
-                                Reading Time
-                            </p>
+                {/* Metadata / stats */}
+                <div className="
+                    mt-10
+                    grid
+                    gap-px
+                    overflow-hidden
+                    border
+                    border-zinc-200
+                    bg-zinc-200
+                    sm:grid-cols-2
+                    lg:grid-cols-4
+                    dark:border-zinc-800
+                    dark:bg-zinc-800
+                ">
 
-                            <p className="mt-1 text-lg font-semibold">
-                                {readingTime} min
-                            </p>
-                        </div>
+                    <div className="bg-white p-5 dark:bg-zinc-950">
+                        <p className="font-mono text-[11px] uppercase tracking-wide text-zinc-500">
+                            Reading Time
+                        </p>
 
-                        <div>
-                            <p className="text-sm text-zinc-500">
-                                Views
-                            </p>
-
-                            <p className="mt-1 text-lg font-semibold">
-                                {journal.viewCount}
-                            </p>
-                        </div>
-
-                        <div>
-                            <p className="text-sm text-zinc-500">
-                                Published
-                            </p>
-
-                            <p className="mt-1 text-lg font-semibold">
-                                {new Date(journal.date).toLocaleDateString('en-US')}
-                            </p>
-                        </div>
-
-                        <div>
-                            <p className="text-sm text-zinc-500">
-                                Related Project
-                            </p>
-
-                            <p className="mt-1 text-lg font-semibold break-all">
-                                {journal.projectSlug ?? "Standalone Journal"}
-                            </p>
-                        </div>
-
+                        <p className="mt-2 font-mono text-sm text-zinc-900 dark:text-zinc-200">
+                            {readingTime} min
+                        </p>
                     </div>
 
-                    {journal.tags.length > 0 && (
-                        <div>
+                    <div className="bg-white p-5 dark:bg-zinc-950">
+                        <p className="font-mono text-[11px] uppercase tracking-wide text-zinc-500">
+                            Views
+                        </p>
 
-                            <p className="mb-3 text-sm uppercase tracking-wide text-zinc-500">
-                                Tags
-                            </p>
+                        <p className="mt-2 font-mono text-sm text-zinc-900 dark:text-zinc-200">
+                            {journal.viewCount}
+                        </p>
+                    </div>
 
-                            <div className="flex flex-wrap gap-2">
+                    <div className="bg-white p-5 dark:bg-zinc-950">
+                        <p className="font-mono text-[11px] uppercase tracking-wide text-zinc-500">
+                            Published
+                        </p>
 
-                                {journal.tags.map((tag: string) => (
-                                    <span
-                                        key={tag}
-                                        className="rounded-full bg-zinc-800 px-3 py-1 text-sm text-zinc-300"
-                                    >
-                                        {tag}
-                                    </span>
-                                ))}
+                        <p className="mt-2 font-mono text-sm text-zinc-900 dark:text-zinc-200">
+                            {publishedDate.toLocaleDateString("en-US")}
+                        </p>
+                    </div>
 
-                            </div>
+                    <div className="bg-white p-5 dark:bg-zinc-950">
+                        <p className="font-mono text-[11px] uppercase tracking-wide text-zinc-500">
+                            Linked Project
+                        </p>
 
-                        </div>
-                    )}
+                        <p className="
+                            mt-2
+                            break-all
+                            font-mono
+                            text-sm
+                            text-zinc-900
+                            dark:text-zinc-200
+                        ">
+                            {journal.projectSlug ?? "None"}
+                        </p>
+                    </div>
 
                 </div>
 
-                <hr className="my-14 border-zinc-800" />
+                {/* Tags */}
+                {journal.tags?.length > 0 && (
+                    <div className="mt-8">
 
-                <article className="prose prose-invert prose-lg max-w-none prose-headings:scroll-mt-28 prose-img:rounded-xl prose-pre:rounded-2xl prose-pre:border prose-pre:border-zinc-800 prose-code:text-blue-300 prose-a:text-blue-400 hover:prose-a:text-blue-300">
+                        <div className="mb-3 font-mono text-[11px] uppercase tracking-wide text-zinc-500">
+                            // TAGS
+                        </div>
 
+                        <div className="flex flex-wrap gap-2">
+                            {journal.tags.map((tag: string) => (
+                                <span
+                                    key={tag}
+                                    className="
+                                        border
+                                        border-zinc-200
+                                        bg-zinc-50
+                                        px-3
+                                        py-1.5
+                                        font-mono
+                                        text-xs
+                                        text-zinc-600
+                                        transition-colors
+                                        hover:border-teal-500/50
+                                        hover:text-teal-600
+                                        dark:border-zinc-800
+                                        dark:bg-zinc-900/50
+                                        dark:text-zinc-400
+                                        dark:hover:border-teal-500/50
+                                        dark:hover:text-teal-400
+                                    "
+                                >
+                                    {tag}
+                                </span>
+                            ))}
+                        </div>
+
+                    </div>
+                )}
+
+                {/* Divider */}
+                <div className="my-12 h-px bg-zinc-200 dark:bg-zinc-800" />
+
+                {/* Article */}
+                <article
+                    className="
+                        prose
+                        max-w-none
+
+                        prose-headings:scroll-mt-28
+                        prose-headings:font-semibold
+                        prose-headings:tracking-tight
+
+                        prose-p:text-zinc-600
+                        prose-p:leading-8
+
+                        prose-strong:text-zinc-900
+
+                        prose-a:text-teal-600
+                        hover:prose-a:text-teal-500
+
+                        prose-code:text-teal-700
+                        prose-code:before:content-none
+                        prose-code:after:content-none
+
+                        prose-pre:overflow-x-auto
+                        prose-pre:border
+                        prose-pre:border-zinc-200
+                        prose-pre:bg-zinc-50
+
+                        prose-blockquote:border-teal-500
+                        prose-blockquote:text-zinc-600
+
+                        prose-li:text-zinc-600
+
+                        prose-hr:border-zinc-200
+
+                        prose-img:rounded-md
+                        prose-img:border
+                        prose-img:border-zinc-200
+
+                        dark:prose-invert
+
+                        dark:prose-p:text-zinc-400
+                        dark:prose-strong:text-zinc-100
+                        dark:prose-code:text-teal-300
+
+                        dark:prose-pre:border-zinc-800
+                        dark:prose-pre:bg-zinc-900/70
+
+                        dark:prose-blockquote:text-zinc-400
+
+                        dark:prose-li:text-zinc-400
+
+                        dark:prose-hr:border-zinc-800
+
+                        dark:prose-img:border-zinc-800
+                    "
+                >
                     <ReactMarkdown
                         remarkPlugins={[
                             remarkGfm,
@@ -171,11 +337,11 @@ export default function JournalClient({
                     >
                         {journal.content}
                     </ReactMarkdown>
-
                 </article>
 
             </div>
-        </section>
+        </main>
     );
 }
+
 

@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import TextField from "@/components/form/TextField";
 import { login } from "@/lib/auth";
 import Dialog from "@/components/ui/Dialog";
+import { WEBSITE_VERSION } from "@/utils/Utility";
 
 export default function Page() {
     const router = useRouter();
@@ -34,71 +35,90 @@ export default function Page() {
                 return;
             }
 
-            localStorage.setItem("token", (await response.json()).token);
+            const data = await response.json();
+            localStorage.setItem("token", data.token);
             console.log("Token stored in localStorage:", localStorage.getItem("token"));
 
             router.push("/admin");
-        }
-        catch (error) {
+        } catch (error) {
             console.error(error);
 
             setDialogTitle("Connection Error");
             setDialogMessage("Unable to connect to the server.");
             setDialogOpen(true);
-        }
-        finally {
+        } finally {
             setLoading(false);
         }
     }
 
     return (
         <>
-            <section className="flex min-h-screen items-center justify-center bg-zinc-950 px-6">
+            <section className="flex min-h-screen items-center justify-center bg-zinc-100 px-4 py-12 transition-colors sm:px-6 lg:px-8 dark:bg-[#0c0d0f]">
+                <div className="w-full max-w-md rounded-[5px] border border-zinc-200 bg-white p-6 shadow-xl sm:p-10 dark:border-zinc-800/80 dark:bg-[#121316]">
 
-                <div className="w-full max-w-md rounded-3xl border border-zinc-800 bg-zinc-900 p-8 shadow-xl">
+                    {/* Logo Badge */}
+                    <div className="flex justify-center">
+                        <div className="flex h-12 w-12 items-center justify-center rounded-[5px] border border-teal-500/30 bg-teal-500/10 text-teal-600 dark:border-teal-500/40 dark:bg-teal-500/10 dark:text-teal-400">
+                            <span className="font-mono text-sm font-bold">RL</span>
+                        </div>
+                    </div>
 
-                    <h1 className="text-3xl font-bold text-white">
-                        Admin Login
-                    </h1>
+                    {/* Titles matching Figma image */}
+                    <div className="mt-6 text-center">
+                        <h1 className="text-2xl font-bold tracking-tight text-zinc-900 sm:text-3xl dark:text-white">
+                            RaazLab Admin
+                        </h1>
 
-                    <p className="mt-2 text-zinc-400">
-                        Sign in to access the admin dashboard.
-                    </p>
+                        <p className="mt-2 font-mono text-xs uppercase tracking-wider text-zinc-500 dark:text-zinc-500">
+                            SECURE_GATEWAY_v{WEBSITE_VERSION}
+                        </p>
+                    </div>
 
-                    <form
-                        onSubmit={handleLogin}
-                        className="mt-8 space-y-6"
-                    >
+                    {/* Form */}
+                    <form onSubmit={handleLogin} className="mt-8 space-y-6">
+                        <div className="space-y-1">
+                            <label className="block font-mono text-xs font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
+                                OPERATOR_EMAIL
+                            </label>
+                            <TextField
+                                label=""
+                                value={username}
+                                onChange={setUsername}
+                                required
+                            />
+                        </div>
 
-                        <TextField
-                            label="Username"
-                            value={username}
-                            onChange={setUsername}
-                            placeholder="Enter username"
-                            required
-                        />
-
-                        <TextField
-                            label="Password"
-                            type="password"
-                            value={password}
-                            onChange={setPassword}
-                            placeholder="Enter password"
-                            required
-                        />
+                        <div className="space-y-1">
+                            <label className="block font-mono text-xs font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
+                                CRYPTOGRAPHIC_PASSKEY
+                            </label>
+                            <TextField
+                                label=""
+                                type="password"
+                                value={password}
+                                onChange={setPassword}
+                                required
+                            />
+                        </div>
 
                         <button
                             type="submit"
                             disabled={loading}
-                            className="w-full rounded-xl bg-blue-600 py-3 font-semibold text-white transition hover:bg-blue-500 disabled:cursor-not-allowed disabled:opacity-50"
+                            className="w-full rounded-[5px] bg-teal-500 py-3.5 text-sm font-semibold text-zinc-950 transition hover:bg-teal-400 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-offset-2 focus:ring-offset-white disabled:cursor-not-allowed disabled:opacity-50 dark:bg-[#00b894] dark:text-zinc-950 dark:hover:bg-[#00a383] dark:focus:ring-teal-500 dark:focus:ring-offset-zinc-900"
                         >
-                            {loading ? "Logging in..." : "Login"}
+                            {loading ? "Signing in..." : "Sign In to Laboratory"}
                         </button>
 
+                        <div className="text-center">
+                            <button
+                                type="button"
+                                className="font-mono text-xs text-zinc-500 underline underline-offset-4 transition hover:text-zinc-800 dark:text-zinc-500 dark:hover:text-zinc-300"
+                            >
+                                Forgot security passkey?
+                            </button>
+                        </div>
                     </form>
-
                 </div>
-
             </section>
 
             <Dialog
@@ -110,3 +130,4 @@ export default function Page() {
         </>
     );
 }
+

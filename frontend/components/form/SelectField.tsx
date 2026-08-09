@@ -18,14 +18,38 @@ export default function SelectField<T extends string>({
 }: SelectFieldProps<T>) {
     return (
         <div>
-            <label className="mb-2 block text-sm font-medium text-zinc-300">
+            <label className="
+            mb-2
+            block
+            text-sm
+            font-medium
+            text-zinc-700
+            dark:text-zinc-300
+        ">
                 {label}
             </label>
 
             <select
                 value={value}
                 onChange={(e) => onChange(e.target.value as T)}
-                className="w-full rounded-xl border border-zinc-700 bg-zinc-900 px-4 py-3 transition focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30"
+                className="
+                w-full
+                rounded-xl
+                border
+                border-zinc-300
+                bg-white
+                px-4
+                py-3
+                text-zinc-900
+                transition-colors
+                focus:border-teal-500
+                focus:outline-none
+                focus:ring-2
+                focus:ring-teal-500/20
+                dark:border-zinc-700
+                dark:bg-zinc-900
+                dark:text-zinc-100
+            "
             >
                 {options.map((option) => {
                     if (typeof option === "string") {

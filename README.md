@@ -1,55 +1,66 @@
-# EngineeringLogs
+# RaazLab
 
-EngineeringLogs is a full-stack web application for showcasing engineering projects and maintaining a technical journal. It features a secure admin dashboard for content management, Markdown-powered articles, and a modern responsive interface.
+RaazLab is a full-stack engineering portfolio and documentation platform for showcasing projects and maintaining a technical journal. It features a secure admin dashboard, Markdown-powered documentation, project media, search and filtering, and a modern responsive interface.
 
 ## ✨ Features
 
 - 🔐 JWT Authentication
 - 📝 Create, edit, and delete Projects & Journals
-- 📖 Markdown support
+- 📖 Markdown-powered documentation
 - 💻 Syntax highlighting for code blocks
-- 📐 LaTeX math rendering
-- 👁️ View counter for articles
-- 🔍 SEO & Open Graph metadata
+- 📐 LaTeX math rendering with KaTeX
+- 👁️ Project view counter
+- 🔍 Search, tags, categories, and filtering
+- 🖼️ Cloudinary media integration
+- 🌙 Light & dark mode
+- 🔎 SEO & Open Graph metadata
 - 📱 Responsive design
-- ⚡ Fast ASP.NET Core + Next.js architecture
+- ⚡ Next.js + ASP.NET Core architecture
 
 ## 🛠️ Tech Stack
 
 ### Backend
+
 - ASP.NET Core 10
 - Entity Framework Core
 - PostgreSQL
 - JWT Authentication
 
 ### Frontend
+
 - Next.js 16
 - React 19
+- TypeScript
 - Tailwind CSS
 - React Markdown
 - KaTeX
 - Highlight.js
 
+### Services
+
+- Vercel — Frontend hosting
+- Render — Backend hosting
+- Neon — PostgreSQL database
+- Cloudinary — Media storage
+
 ## 🚀 Running Locally
 
 ### Backend
 
-```bash
-cd backend/EngineeringLogs.Api
-dotnet restore
-dotnet ef database update
-dotnet run
-```
+From `backend/EngineeringLogs.Api`:
+
+- `dotnet restore`
+- `dotnet ef database update`
+- `dotnet run`
 
 ### Frontend
 
-```bash
-cd frontend
-npm install
-npm run dev
-```
+From `frontend`:
 
-The frontend runs on **http://localhost:3000** and communicates with the ASP.NET Core API.
+- `npm install`
+- `npm run dev`
+
+The frontend runs on `http://localhost:3000` and communicates with the ASP.NET Core API.
 
 ## 📸 Screenshots
 
@@ -57,12 +68,11 @@ The frontend runs on **http://localhost:3000** and communicates with the ASP.NET
 
 ## 🔮 Future Plans
 
-- Search functionality
-- Tags & categories
-- Rich Markdown editor
-- Image uploads
-- Analytics dashboard
-- Article recommendations
+- Project timeline visualization
+- Advanced analytics
+- Improved content management
+- More media and video support
+- Additional documentation features
 
 ## 📄 License
 
