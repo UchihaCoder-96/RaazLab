@@ -3,7 +3,9 @@ import API_BASE_URL from "./api";
 import { Journal } from "@/types/journal";
 
 export async function getJournals(): Promise<Journal[]> {
-    const response = await fetch(`${API_BASE_URL}/api/journals`);
+    const response = await fetch(`${API_BASE_URL}/api/journals`, {
+        cache: "no-store",
+    });
 
     if (!response.ok) {
         throw new Error("Failed to fetch journals");
@@ -18,7 +20,9 @@ export async function getJournals(): Promise<Journal[]> {
 }
 
 export async function getJournal(slug: string): Promise<Journal> {
-    const response = await fetch(`${API_BASE_URL}/api/journals/${slug}`);
+    const response = await fetch(`${API_BASE_URL}/api/journals/${slug}`, {
+        cache: "no-store",
+    });
 
     if (!response.ok) {
         throw new Error("Failed to fetch journal");
